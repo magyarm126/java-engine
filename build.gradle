@@ -15,7 +15,15 @@ ext {
     javaMainClass = "engine.Main"
 }
 application {
-    mainClassName = javaMainClass
+    getMainClass().set(javaMainClass)
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': javaMainClass
+        )
+    }
 }
 
 dependencies {
