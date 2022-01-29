@@ -1,5 +1,7 @@
 package hu.mmagyar.engine;
 
+import hu.mmagyar.engine.window.Window;
+
 /***
  * Main class
  */
@@ -9,6 +11,7 @@ public class Main {
      * @param args Application arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Window window = Window.getInstance();
+        window.run();
     }
 }
