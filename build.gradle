@@ -98,3 +98,11 @@ task distJre(type: Copy) {
     destinationDir = file("$buildDir/launch4j/jre")
 }
 distJre.dependsOn createExe
+
+task packageDistribution(type: Zip) {
+    archiveFileName = getArchiveFileName().get() + '.zip'
+    destinationDirectory = file("$buildDir/dist")
+
+    from "$buildDir/launch4j"
+}
+packageDistribution.dependsOn distJre
