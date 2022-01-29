@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "application"
 }
 
 group = 'hu.mmagyar'
@@ -8,14 +7,6 @@ version = '1.0-SNAPSHOT'
 
 ext {
     javaMainClass = "hu.mmagyar.engine.Main"
-}
-
-application {
-    getMainClass().set(javaMainClass)
-}
-
-jar {
-    //noinspection GroovyAssignabilityCheck
     manifest {
         attributes 'Main-Class': javaMainClass
     }
@@ -32,4 +23,11 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+task runJar(type: Exec) {
+    dependsOn jar
+    group = "Execution"
+    description = "Run the mainClass from the output jar in classpath with ExecTask"
+    commandLine "java", "-classpath", jar.archiveFile.get(), javaMainClass
 }
