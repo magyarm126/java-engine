@@ -1,4 +1,4 @@
-package engine;
+package hu.mmagyar.engine;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

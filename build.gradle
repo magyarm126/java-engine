@@ -7,7 +7,7 @@ group = 'hu.mmagyar'
 version = '1.0-SNAPSHOT'
 
 ext {
-    javaMainClass = "engine.Main"
+    javaMainClass = "hu.mmagyar.engine.Main"
 }
 
 application {
