@@ -42,8 +42,31 @@ dependencies {
     implementation "org.joml:joml:${jomlVersion}"
 }
 
+test {
+    useJUnitPlatform()
+    testlogger {
+        theme 'plain'
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped true
+        showFailed true
+        showStandardStreams false
+        showPassedStandardStreams true
+        showSkippedStandardStreams true
+        showFailedStandardStreams true
+        logLevel 'lifecycle'
+    }
+}
+
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    processResources.exclude('/desktop-deployment/*')
     //noinspection GroovyAssignabilityCheck
     manifest {
         attributes(
@@ -70,30 +93,8 @@ launch4j {
     bundledJre64Bit = true
 }
 
-task addJreToDistributable(type: Copy) {
+task distJre(type: Copy) {
     from zipTree("src/main/resources/desktop-deployment/jdk-17.0.2.zip")
     destinationDir = file("$buildDir/launch4j/jre")
 }
-addJreToDistributable.dependsOn createExe
-
-test {
-    useJUnitPlatform()
-    testlogger {
-        theme 'plain'
-        showExceptions true
-        showStackTraces true
-        showFullStackTraces false
-        showCauses true
-        slowThreshold 2000
-        showSummary true
-        showSimpleNames false
-        showPassed true
-        showSkipped true
-        showFailed true
-        showStandardStreams false
-        showPassedStandardStreams true
-        showSkippedStandardStreams true
-        showFailedStandardStreams true
-        logLevel 'lifecycle'
-    }
-}
+distJre.dependsOn createExe
