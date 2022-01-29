@@ -3,17 +3,13 @@ plugins {
     id "application"
 }
 
-group = 'org.example'
+group = 'hu.mmagyar'
 version = '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
-
-apply plugin: "java"
 ext {
     javaMainClass = "engine.Main"
 }
+
 application {
     getMainClass().set(javaMainClass)
 }
@@ -25,11 +21,15 @@ jar {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-}
-
-test {
-    useJUnitPlatform()
 }
