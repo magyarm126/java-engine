@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.adarshr.test-logger' version '3.1.0'
 }
 
 group = 'hu.mmagyar'
@@ -14,6 +15,24 @@ ext {
 
 test {
     useJUnitPlatform()
+    testlogger {
+        theme 'plain'
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped true
+        showFailed true
+        showStandardStreams false
+        showPassedStandardStreams true
+        showSkippedStandardStreams true
+        showFailedStandardStreams true
+        logLevel 'lifecycle'
+    }
 }
 
 repositories {
