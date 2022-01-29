@@ -24,7 +24,7 @@ public class Window {
         this.title = "Test engine";
     }
 
-    public synchronized static Window getInstance() {
+    public static Window getInstance() {
         if (instance != null) {
             return instance;
         } else {
