@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -38,6 +39,7 @@ public class Window {
         System.out.print("Hello LWJGL" + Version.getVersion());
         init();
         loop();
+        cleanup();
     }
 
     private void init() {
@@ -90,5 +92,10 @@ public class Window {
 
             glfwSwapBuffers(this.windowMemoryAddress);
         }
+    }
+
+    private void cleanup() {
+        glfwFreeCallbacks(this.windowMemoryAddress);
+        glfwDestroyWindow(this.windowMemoryAddress);
     }
 }

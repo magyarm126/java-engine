@@ -15,7 +15,7 @@ ext {
 }
 
 jar {
-    //noinspection GroovyAssignabilityCheckű
+    //noinspection GroovyAssignabilityCheck
     manifest {
         attributes 'Main-Class': javaMainClass
     }
