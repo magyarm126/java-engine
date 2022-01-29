@@ -6,45 +6,16 @@ plugins {
 group = 'hu.mmagyar'
 version = '1.0-SNAPSHOT'
 
+repositories {
+    mavenCentral()
+}
+
 ext {
     javaMainClass = "hu.mmagyar.engine.Main"
 
     lwjglVersion = "3.3.0"
     jomlVersion = "1.10.3"
     lwjglNatives = "natives-windows"
-}
-
-jar {
-    //noinspection GroovyAssignabilityCheck
-    manifest {
-        attributes 'Main-Class': javaMainClass
-    }
-}
-
-test {
-    useJUnitPlatform()
-    testlogger {
-        theme 'plain'
-        showExceptions true
-        showStackTraces true
-        showFullStackTraces false
-        showCauses true
-        slowThreshold 2000
-        showSummary true
-        showSimpleNames false
-        showPassed true
-        showSkipped true
-        showFailed true
-        showStandardStreams false
-        showPassedStandardStreams true
-        showSkippedStandardStreams true
-        showFailedStandardStreams true
-        logLevel 'lifecycle'
-    }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -70,9 +41,45 @@ dependencies {
     implementation "org.joml:joml:${jomlVersion}"
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(
+                'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+                'Main-Class': javaMainClass
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 task runJar(type: Exec) {
     dependsOn jar
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     commandLine "java", "-classpath", jar.archiveFile.get(), javaMainClass
+}
+
+test {
+    useJUnitPlatform()
+    testlogger {
+        theme 'plain'
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped true
+        showFailed true
+        showStandardStreams false
+        showPassedStandardStreams true
+        showSkippedStandardStreams true
+        showFailedStandardStreams true
+        logLevel 'lifecycle'
+    }
 }
