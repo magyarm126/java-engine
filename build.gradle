@@ -8,6 +8,10 @@ version = '1.0-SNAPSHOT'
 
 ext {
     javaMainClass = "hu.mmagyar.engine.Main"
+}
+
+jar {
+    //noinspection GroovyAssignabilityCheckű
     manifest {
         attributes 'Main-Class': javaMainClass
     }
