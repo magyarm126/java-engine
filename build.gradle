@@ -3,8 +3,8 @@ plugins {
     id "application"
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group = 'org.example'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -19,10 +19,9 @@ application {
 }
 
 jar {
+    //noinspection GroovyAssignabilityCheck
     manifest {
-        attributes(
-                'Main-Class': javaMainClass
-        )
+        attributes 'Main-Class': javaMainClass
     }
 }
 
