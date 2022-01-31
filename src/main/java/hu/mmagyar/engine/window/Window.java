@@ -10,7 +10,6 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    private static Window instance;
 
     private final int width;
     private final int height;
@@ -24,15 +23,12 @@ public class Window {
         this.title = "Test engine";
     }
 
+    private static final class InstanceHolder {
+        private static final Window instance = new Window();
+    }
+
     public static Window getInstance() {
-        if (instance != null) {
-            return instance;
-        } else {
-            synchronized (Window.class) {
-                instance = new Window();
-                return instance;
-            }
-        }
+        return InstanceHolder.instance;
     }
 
     public void run() {
