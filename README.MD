@@ -1,10 +1,10 @@
 # Java engine poc
 
-##Author
+## Author
 - Magyar Máté
-- Github - https://github.com/magyarm126/java-engine
+- Github: https://github.com/magyarm126/java-engine
 
-##Requirements
+## Requirements
 - Windows
 - Preinstalled Java 17 or Bundled version with Launch4j
 
@@ -22,8 +22,9 @@
 ## Inspiration
 Coding a 2D Game Engine in Java by GamesWithGabe
 
-Youtube - https://www.youtube.com/playlist?list=PLtrSb4XxIVbp8AKuEAlwNXDxr99e3woGE
+- Github: https://github.com/codingminecraft/MarioYoutube
 
-Website - https://ambrosiogabe.itch.io/mario-maker
+- Website: https://ambrosiogabe.itch.io/mario-maker
 
-Github - https://github.com/codingminecraft/MarioYoutube
+- Youtube: https://www.youtube.com/playlist?list=PLtrSb4XxIVbp8AKuEAlwNXDxr99e3woGE
+
