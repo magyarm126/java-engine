@@ -1,11 +1,10 @@
 package hu.mmagyar.engine.window;
 
 import lombok.Getter;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFWCursorPosCallbackI;
-
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
 
@@ -17,7 +16,7 @@ public class CursorHandler {
     @Getter
     private double yPos;
 
-    private static final Logger logger = Logger.getLogger(CursorHandler.class.getName());
+    private static final Logger logger = LogManager.getLogger(CursorHandler.class);
 
     public CursorHandler(long windowAddress) {
         glfwSetCursorPosCallback(windowAddress, this.cursorCallback());
@@ -30,7 +29,7 @@ public class CursorHandler {
     private void updatePosition(double xPos, double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        logger.log(Level.INFO, "New cursor location: (" + xPos + "," + yPos + ")");
+        logger.debug("New cursor location: (" + xPos + "," + yPos + ")");
     }
 
 }
