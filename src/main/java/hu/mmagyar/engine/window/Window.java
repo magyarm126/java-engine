@@ -17,6 +17,8 @@ public class Window {
 
     private long windowMemoryAddress;
 
+    private CursorHandler cursorHandler;
+
     private Window() {
         this.width = 1920;
         this.height = 1080;
@@ -64,7 +66,7 @@ public class Window {
     }
 
     private void postConfigure() {
-        glfwMakeContextCurrent(windowMemoryAddress);
+        glfwMakeContextCurrent(this.windowMemoryAddress);
 
         //Enable V-Sync
         glfwSwapInterval(1);
@@ -77,13 +79,19 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+
+        registerCursorHandler();
+    }
+
+    private void registerCursorHandler() {
+        cursorHandler = new CursorHandler(this.windowMemoryAddress);
     }
 
     private void loop() {
         while (!glfwWindowShouldClose(this.windowMemoryAddress)) {
             glfwPollEvents();
 
-            glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+            glClearColor(0.0f, 0.3f, 0.0f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(this.windowMemoryAddress);

@@ -40,6 +40,15 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
 }
 
 test {
