@@ -1,5 +1,6 @@
 package hu.mmagyar.engine.window;
 
+import hu.mmagyar.engine.mouse.MouseHandler;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;

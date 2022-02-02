@@ -1,4 +1,4 @@
-package hu.mmagyar.engine.window;
+package hu.mmagyar.engine.mouse;
 
 import lombok.Data;
 import lombok.Getter;
