@@ -17,7 +17,7 @@ public class Window {
 
     private long windowMemoryAddress;
 
-    private CursorHandler cursorHandler;
+    private MouseHandler mouseHandler;
 
     private Window() {
         this.width = 1920;
@@ -84,7 +84,7 @@ public class Window {
     }
 
     private void registerCursorHandler() {
-        cursorHandler = new CursorHandler(this.windowMemoryAddress);
+        this.mouseHandler = new MouseHandler(this.windowMemoryAddress);
     }
 
     private void loop() {

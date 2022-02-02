@@ -1,26 +1,24 @@
 package hu.mmagyar.engine.window;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 
-@Getter(AccessLevel.PROTECTED)
-@Setter(AccessLevel.PROTECTED)
-public class CursorHandler {
+@Data
+public class MouseHandler {
 
-    private MousePositionState lastMousePositionState = new MousePositionState();
-    private MousePositionState currentMousePositionState = new MousePositionState();
+    private MousePositionState oldPosition = new MousePositionState();
+    private MousePositionState currentPosition = new MousePositionState();
 
-    private MouseButtonState lastMouseButtonState = new MouseButtonState();
-    private MouseButtonState currentMouseButtonState = new MouseButtonState();
+    private MouseButtonState oldButtons = new MouseButtonState();
+    private MouseButtonState currentButtons = new MouseButtonState();
 
-    private static final Logger logger = LogManager.getLogger(CursorHandler.class);
+    private static final Logger logger = LogManager.getLogger(MouseHandler.class);
 
-    public CursorHandler(long windowAddress) {
+    public MouseHandler(long windowAddress) {
         this.init(windowAddress);
     }
 
@@ -44,13 +42,13 @@ public class CursorHandler {
     }
 
     protected void updateMouseButtonState(int button, int action) {
-        this.lastMouseButtonState.setNewState(this.currentMouseButtonState);
-        this.currentMouseButtonState.setAtIndex(button, action);
+        this.oldButtons.setNewState(this.currentButtons);
+        this.currentButtons.setAtIndex(button, action);
     }
 
     protected void updatePosition(double newXPos, double newYPos) {
-        this.getLastMousePositionState().updateState(this.getCurrentMousePositionState());
-        this.getCurrentMousePositionState().updatePosition(newXPos, newYPos);
+        this.getOldPosition().updateState(this.getCurrentPosition());
+        this.getCurrentPosition().updatePosition(newXPos, newYPos);
     }
 
 }

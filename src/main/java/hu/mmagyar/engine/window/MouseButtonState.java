@@ -1,12 +1,13 @@
 package hu.mmagyar.engine.window;
 
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_RIGHT;
 
+@Data
 public final class MouseButtonState {
 
     @Getter

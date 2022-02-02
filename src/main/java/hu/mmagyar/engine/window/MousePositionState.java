@@ -1,13 +1,10 @@
 package hu.mmagyar.engine.window;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Getter(AccessLevel.PROTECTED)
-@Setter(AccessLevel.PROTECTED)
+@Data
 public class MousePositionState {
     private double xPos;
     private double yPos;
