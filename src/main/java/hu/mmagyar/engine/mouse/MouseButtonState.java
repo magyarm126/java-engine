@@ -2,6 +2,8 @@ package hu.mmagyar.engine.mouse;
 
 import lombok.Data;
 import lombok.Getter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
@@ -12,6 +14,8 @@ public final class MouseButtonState {
 
     @Getter
     private boolean[] buttonsPressed;
+
+    private static final Logger logger = LogManager.getLogger(MouseButtonState.class);
 
     public MouseButtonState() {
         this.buttonsPressed = new boolean[8];
@@ -30,6 +34,7 @@ public final class MouseButtonState {
     public void setAtIndex(int buttonIndex, boolean isPressed) {
         this.assertIndexBounds(buttonIndex);
         this.buttonsPressed[buttonIndex] = isPressed;
+        logger.debug("New pressed button state at (index,state): (" + buttonIndex + "," + isPressed + ")");
     }
 
     public void setAtIndex(int buttonIndex, int actionIndex) {

@@ -25,30 +25,9 @@ public class MouseHandler {
     }
 
     protected void init(long windowAddress) {
-        initCursorCallback(windowAddress);
-        initMouseButtonCallback(windowAddress);
-        initMouseScrollCallback(windowAddress);
-    }
-
-    protected void initCursorCallback(long windowAddress) {
-        var setCallback = glfwSetCursorPosCallback(windowAddress, (window, xPos, yPos) -> this.updatePosition(xPos, yPos));
-        if (setCallback == null) {
-            throw new IllegalStateException("Could not set cursor position callback");
-        }
-    }
-
-    protected void initMouseButtonCallback(long windowAddress) {
-        var setCallback = glfwSetMouseButtonCallback(windowAddress, (window, button, action, mods) -> this.updateMouseButtonState(button, action));
-        if (setCallback == null) {
-            throw new IllegalStateException("Could not set mouse button callback");
-        }
-    }
-
-    protected void initMouseScrollCallback(long windowAddress) {
-        var setCallback = glfwSetScrollCallback(windowAddress, (window, xOffset, yOffset) -> this.updateScroll(xOffset, yOffset));
-        if (setCallback == null) {
-            throw new IllegalStateException("Could not set mouse scroll callback");
-        }
+        glfwSetCursorPosCallback(windowAddress, (window, xPos, yPos) -> this.updatePosition(xPos, yPos));
+        glfwSetMouseButtonCallback(windowAddress, (window, button, action, mods) -> this.updateMouseButtonState(button, action));
+        glfwSetScrollCallback(windowAddress, (window, xOffset, yOffset) -> this.updateScroll(xOffset, yOffset));
     }
 
     protected void updateMouseButtonState(int button, int action) {
