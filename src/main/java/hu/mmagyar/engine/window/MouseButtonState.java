@@ -1,27 +1,39 @@
 package hu.mmagyar.engine.window;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_RIGHT;
 
-public class MouseButtonState {
+public final class MouseButtonState {
 
-    private final boolean[] buttonsPressed;
+    @Getter
+    private boolean[] buttonsPressed;
 
     public MouseButtonState() {
         this.buttonsPressed = new boolean[8];
         this.clear();
     }
 
-    public boolean getAtIndex(int index) {
-        assertIndexBounds(index);
-        return buttonsPressed[index];
+    public void setNewState(MouseButtonState newState) {
+        this.buttonsPressed = Arrays.copyOf(newState.getButtonsPressed(), this.buttonsPressed.length);
     }
 
-    public void setAtIndex(int index, boolean newValue) {
-        assertIndexBounds(index);
-        buttonsPressed[index] = newValue;
+    public boolean getAtIndex(int index) {
+        this.assertIndexBounds(index);
+        return this.buttonsPressed[index];
+    }
+
+    public void setAtIndex(int buttonIndex, boolean isPressed) {
+        this.assertIndexBounds(buttonIndex);
+        this.buttonsPressed[buttonIndex] = isPressed;
+    }
+
+    public void setAtIndex(int buttonIndex, int actionIndex) {
+        this.assertActionInBounds(actionIndex);
+        this.setAtIndex(buttonIndex, actionIndex == GLFW_PRESS);
     }
 
     public boolean getLeftButton() {
@@ -52,6 +64,13 @@ public class MouseButtonState {
         if (buttonIndex < 0 || 7 < buttonIndex) {
             throw new IllegalArgumentException("Mouse button index is not within bounds [0,7], actual value:" + buttonIndex);
         }
+    }
+
+    private void assertActionInBounds(int actionIndex) {
+        if (actionIndex == GLFW_PRESS || actionIndex == GLFW_RELEASE) {
+            return;
+        }
+        throw new IllegalArgumentException("Unexpected mouse press action encountered with value:" + actionIndex);
     }
 
     public void clear() {

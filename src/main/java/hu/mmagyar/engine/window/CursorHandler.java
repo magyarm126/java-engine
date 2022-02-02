@@ -12,13 +12,11 @@ import static org.lwjgl.glfw.GLFW.*;
 @Setter(AccessLevel.PROTECTED)
 public class CursorHandler {
 
-    private double xPos;
-    private double lastXPos;
-    private double yPos;
-    private double lastYPos;
-    private boolean dragging;
-    private MouseButtonState currentMouseButtonState = new MouseButtonState();
+    private MousePositionState lastMousePositionState = new MousePositionState();
+    private MousePositionState currentMousePositionState = new MousePositionState();
+
     private MouseButtonState lastMouseButtonState = new MouseButtonState();
+    private MouseButtonState currentMouseButtonState = new MouseButtonState();
 
     private static final Logger logger = LogManager.getLogger(CursorHandler.class);
 
@@ -46,21 +44,13 @@ public class CursorHandler {
     }
 
     protected void updateMouseButtonState(int button, int action) {
-        if (action == GLFW_PRESS) {
-            this.currentMouseButtonState.setAtIndex(button, true);
-        } else if (action == GLFW_RELEASE) {
-            this.currentMouseButtonState.setAtIndex(button, false);
-        } else {
-            throw new IllegalArgumentException("Unexpected mouse press action encountered with value:" + action);
-        }
+        this.lastMouseButtonState.setNewState(this.currentMouseButtonState);
+        this.currentMouseButtonState.setAtIndex(button, action);
     }
 
     protected void updatePosition(double newXPos, double newYPos) {
-        this.setLastXPos(this.xPos);
-        this.setLastYPos(this.yPos);
-        this.setXPos(newXPos);
-        this.setYPos(newYPos);
-        logger.debug("New cursor location: (" + newXPos + "," + newYPos + ")");
+        this.getLastMousePositionState().updateState(this.getCurrentMousePositionState());
+        this.getCurrentMousePositionState().updatePosition(newXPos, newYPos);
     }
 
 }
